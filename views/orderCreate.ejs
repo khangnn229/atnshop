@@ -1,0 +1,76 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<% for (var i = 0; i < products.length; i++) {%>
+Name: <%= products[i].name%> <br>
+Price: <%= products[i].price%> <%= products[i].currency%> / <%=products[i].unit%> <br>
+Information: <%=products[i].information%> <br>
+<button id="btn-add" onclick='addToCart("<%= products[i]._id %>", "<%= products[i].name %>", "<%= products[i].price %>", "<%= products[i].currency%>", "<%= products[i].unit%>")'>Add</button> <br>
+<% } %> 
+
+<b>Cart</b>
+<div id="cart"></div>
+Total: <span id="total"></span>
+
+<form action="/payment" method="post">
+    <input type="text" name="staffId" id="staffId" hidden>
+    <input type="text" name="cart" id="cartjson" hidden>
+    <input type="submit" value="Create">
+</form>
+
+<script>
+    var cart = [];
+    var availableCurrency = []
+    var total = 0;
+    function addToCart(id, name, price, currency, unit) {
+        console.log(cart);
+        var addedProduct = cart[id];
+        if (addedProduct) {
+            addedProduct["quantity"] += 1;
+        }
+        else {
+            addedProduct = {name: name, price: price, currency: currency, unit: unit, quantity: 1};
+        }
+        if (!availableCurrency[addedProduct.currency]) {
+            availableCurrency[addedProduct.currency] = addedProduct.price * addedProduct.quantity; 
+        }
+        else {
+            availableCurrency[addedProduct.currency] += addedProduct.price * addedProduct.quantity; 
+        }
+        cart[id] = addedProduct;
+        console.log(cart);
+
+        var xkey = Object.keys(cart);
+        var ckey = Object.keys(availableCurrency);
+        var cartText = "";
+        var cartJSON = "";
+        cartJSON += "{";
+        cartJSON += "\"products\": [";
+        for (var j = 0; j < xkey.length; j++) {
+            cartText += cart[xkey[j]].name + " <br> " + 
+                       cart[xkey[j]].quantity + " " + cart[xkey[j]].unit + "(s) <br>" +
+                       cart[xkey[j]].price + " " + cart[xkey[j]].currency + "<br>"
+            cartJSON += "{ \"_id\": \"" + xkey[j] + "\"," +
+                        "\"name\": \"" + cart[xkey[j]].name + "\", " +
+                        "\"quantity\": " +  cart[xkey[j]].quantity + "," +
+                        "\"unit\": \"" + cart[xkey[j]].unit + "\"," +
+                        "\"price\": " +  cart[xkey[j]].price + "," +
+                        "\"currency\": \"" + cart[xkey[j]].currency + "\"},";
+        }
+        if (xkey.length > 0) cartJSON = cartJSON.substring(0, cartJSON.length-1);
+        cartJSON += "], ";
+        $("#cart").html(cartText);
+        $("#total").html("");
+        cartJSON += "\"total\": [";
+        for (var j = 0; j < ckey.length; j++) {
+            $("#total").append(availableCurrency[ckey[j]].toFixed(2) + ckey[j] + "<br>");
+            cartJSON += "{ \"currency\": \"" + ckey[j] + "\"," +
+                        "\"total\": " + availableCurrency[ckey[j]].toFixed(2) + "},"
+        }
+        if (ckey.length > 0) cartJSON = cartJSON.substring(0, cartJSON.length-1);
+        cartJSON += "] ";
+        cartJSON += "}";
+        console.log(cartJSON);
+        $("#cartjson").val(cartJSON);
+    }
+</script>
+<%- include('partials/footer') -%>

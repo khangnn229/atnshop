@@ -1,0 +1,24 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<%= details.staffId%> <br>
+<%= details.username%> <br>
+<% switch (details.role) {
+    case 0:
+  %> Director <%
+    break;
+    case 1:
+  %> Manager <%
+    break;
+    default:
+  %> Staff <%
+    break;
+  }%> <br>
+<%= details.profile.fullname%> <br>
+<%= details.profile.dob%> <br>
+<%= details.profile.phone%> <br>
+<%= details.profile.email%> <br>
+<% if (details.role > 0) {%> 
+<%= details.workingShop.name%> <br>
+<%= details.workingShop.address%> <br>
+<%} %>
+<%- include('partials/footer') -%>

@@ -1,0 +1,28 @@
+<%- include('partials/head'); -%>
+
+<div class="login-wrapper">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h2>LOGIN</h2>
+    </div>
+
+    <!-- Login Form -->
+    <form action="login" method="post">
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <p class="error"><% if (exitcode != 200) {%>
+        Failed to login. <%= message %>.
+      <% } %></p>
+    </div>
+
+  </div>
+</div>
+<%- include('partials/footer'); -%>

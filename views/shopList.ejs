@@ -1,0 +1,8 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<% for (var i = 0; i < shops.length; i++) { %>
+    Name: <%= shops[i].name %>
+    Address: <%= shops[i].address %>
+    <a href="/shop/<%= shops[i]._id %>">View</a> <br>
+<% } %>
+<%- include('partials/footer') -%>

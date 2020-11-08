@@ -1,0 +1,39 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<% if (exitcode != 200) { %>
+  <p>Failed to get the account list. [Exitcode: <%= exitcode %>] <%= message %>.</p>
+<% } else { %>
+  <% if (user.role <= 1) { %> <a href="/account-create">New account</a><br> <% } %>
+  There are <%= accounts.length %> account(s).
+  <table>
+    <tr>
+      <th>Staff ID</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Full name</th>
+      <th>Working Shop</th>
+      <th>Actions</th>
+    </tr>
+    <% for (var i = 0; i < accounts.length; i++) { %>
+    <tr>
+      <td><%= accounts[i].staffId %></td>
+      <td><%= accounts[i].username %></td>
+      <td><% switch (accounts[i].role) {
+        case 0:
+      %> Director <%
+        break;
+        case 1:
+      %> Manager <%
+        break;
+        default:
+      %> Staff <%
+        break;
+      }%></td>
+      <td><% {%><%= accounts[i].profile.fullname %> <% } %></td>
+      <td><% if (accounts[i].role > 0) {%><%= accounts[i].workingShop.name %> <% } %></td>
+      <td><a href="/account/<%= accounts[i].staffId %>">Details</a> <% if (accounts[i].role > user.role) { %> | <a href="/account/<%= accounts[i].staffId %>">Update</a> <% } %></td>
+    </tr>
+    <% } %>
+  </table>
+<% } %>
+<%- include('partials/footer') -%>

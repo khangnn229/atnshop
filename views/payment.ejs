@@ -1,0 +1,26 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+Staff: 
+ID: <%= user.profile.staffId %> <br>
+Full name: <%= user.profile.fullname %> <br>
+Products:
+<% for (var i = 0; i < cart.products.length; i++) { %>
+Name: <%= cart.products[i].name %> <br>
+Price: <%= cart.products[i].price %> <%= cart.products[i].currency %> <br>
+Quantity: <%= cart.products[i].quantity %> (<%= cart.products[i].unit %>(s)) <br>
+Subtotal: <%= (cart.products[i].price * cart.products[i].quantity).toFixed(2) %> <br>
+<% } %>
+Created Date: <%= createdDate %> <br>
+Total: <br>
+<% for (var i = 0; i < cart.total.length; i++) { %>
+<%= cart.total[i].total%> <%= cart.total[i].currency %>
+<% if (i < cart.total.length -1) { %> + <% } %>
+<% } %>
+
+<form action="/order-create" method="post">
+    <input type="text" name="staffId" id="staffId" value="<%= user.staffId %>" hidden>
+    <input type="text" name="cart" id="cartjson" value="<%= cartjson %>" hidden>
+    <input type="datetime" name="createdDate" id="cartjson" value="<%= createdDate %>" hidden>
+    <input type="submit" value="Confirm">
+</form><br>
+<%- include('partials/footer') -%>

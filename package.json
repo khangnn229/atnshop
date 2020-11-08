@@ -1,0 +1,27 @@
+{
+  "name": "atn-shop",
+  "version": "1.0.0",
+  "description": "A product for the 2nd assignment of Cloud Computing",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "keywords": [
+    "cloud",
+    "computing",
+    "shop",
+    "management",
+    "university",
+    "of",
+    "greenwich"
+  ],
+  "author": "Khang Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.12",
+    "path": "^0.12.7"
+  }
+}

@@ -1,0 +1,20 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+Shop name: <%= shop.name %> <br>
+Address: <%= shop.address %> <br>
+<% for (var i = 0; i < shop.members.length; i++) { %>
+    Name: <%= shop.members[i].profile.fullname %> <br>
+    Role: <% switch (shop.members[i].role) {
+        case 0:
+      %> Director <%
+        break;
+        case 1:
+      %> Manager <%
+        break;
+        default:
+      %> Staff <%
+        break;
+      }%> <br>
+    <a href="/account/<%= shop.members[i].staffId %>">View</a> <br>
+<% } %>
+<%- include('partials/footer') -%>

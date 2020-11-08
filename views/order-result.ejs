@@ -1,0 +1,8 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<% if (exitcode != 200) { %>
+Failed to create the order. [Exitcode: <%= exitcode %>] <%= message %> <a href="/order">Try again</a> | <a href="/">Home</a>
+<% } else { %>
+Successful. <a href="/order">Continue</a> | <a href="/">Home</a>
+<% } %>
+<%- include('partials/footer') -%>

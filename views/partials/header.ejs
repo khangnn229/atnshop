@@ -1,0 +1,8 @@
+<header>
+    <div id="banner">
+        <div id="logo"><img src="/images/logo.png" alt="ATN SHOP" srcset=""></div>
+        <div id="user"><p>Have a nice day, <% if (user.profile.fullname != "") { %><%= user.username %><% } else { %><%= user.profile.fullname %><% } %>!</p></div>
+    </div>
+</header>
+<%- include('navigation') -%>
+<main>
