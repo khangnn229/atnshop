@@ -1,38 +1,55 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
-<form class="" action="/account-create" method="post">
+<form class="form-container" action="/account-create" method="post">
   <p class="error"><% if (exitcode != 200) {%>
     Failed to create a new account. [Exitcode: <%= exitcode %>] <%= message %>.
   <% } %></p>
-  <label for="staffId">Staff ID: </label>
-  <input type="text" name="staffId" pattern="^[A-Z]{3}[0-9]{7}" maxlength="10" value="" required>
-  <label for="username">Username: </label>
-  <input type="text" name="username" value="" required> <br>
-  <label for="password">Password: </label>
-  <input type="password" name="password" value="" required> <br>
-  <label for="role">Role: </label>
-  <% if (user.role <= 0) { %> <input type="radio" name="role" value="0">Director</input> <% } %>
-  <% if (user.role <= 1) { %> <input type="radio" name="role" value="1">Manager</input> <% } %>
-  <input type="radio" name="role" value="2" checked>Staff</input><br>
-  <div id="workingShop"><label for="workingShop">Working Shop: </label>
-  <select name="workingShop" id="shopList"></select></div>
-  <div id="profile">
-    <label for="fullname" required>Full name: </label>
-    <input type="text" name="fullname" value="" required> <br>
-    <label for="dob">Date of birth: </label>
-    <input type="date" name="dob" value="" required> <br>
-    <label for="phone">Phone: </label>
-    <input type="text" name="phone" pattern="[0-9]{10}" value=""> <br>
-    <label for="email">Email: </label>
-    <input type="email" name="email" value=""> <br>
-    <label for="urlImg">Image: </label>
+  <div class="form-group">
+    <label for="staffId">Staff ID: </label>
+    <input class="form-control" type="text" name="staffId" pattern="^[A-Z]{3}[0-9]{7}" maxlength="10" value="" required>
   </div>
-  <input type="submit" name="submit" value="Create">
+  <div class="form-group">
+    <label for="username">Username: </label>
+    <input class="form-control" type="text" name="username" value="" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Password: </label>
+    <input class="form-control" type="password" name="password" value="" required>
+  </div>
+  <div class="form-group">
+    <label for="role">Role: </label>
+    <select class="form-control" name="role" id="role">
+      <% if (user.role <= 0) { %> <option value="0">Director</option> <% } %>
+      <% if (user.role <= 1) { %> <option value="1">Manager</option> <% } %>
+      <option value="2" selected>Staff</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <div id="workingShop"><label for="workingShop">Working Shop: </label>
+    <select class="form-control" name="workingShop" id="shopList"></select></div>
+  </div>
+  <div class="form-group">
+    <label for="fullname" required>Full name: </label>
+    <input class="form-control" type="text" name="fullname" value="" required> <br>
+  </div>
+  <div class="form-group">
+    <label for="dob">Date of birth: </label>
+    <input class="form-control" type="date" name="dob" value="" required> <br>
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone: </label>
+    <input class="form-control" type="text" name="phone" pattern="[0-9]{10}" value=""> <br>
+  </div>
+  <div class="form-group">
+    <label for="email">Email: </label>
+    <input class="form-control" type="email" name="email" value=""> <br>
+  </div>
+  <input type="submit" name="submit" class="btn btn-primary" value="Create">
 </form>
 
 <script>
-  $('input[name="role"]').on('change', function() {
-    if ($('input[name="role"]:checked').val() > 0) $('#workingShop').show()
+  $('#role').on('change', function() {
+    if ($('#role').val() > 0) $('#workingShop').show()
     else $('#workingShop').hide();
   })
 

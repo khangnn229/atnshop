@@ -1,20 +1,47 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
-Shop name: <%= shop.name %> <br>
-Address: <%= shop.address %> <br>
-<% for (var i = 0; i < shop.members.length; i++) { %>
-    Name: <%= shop.members[i].profile.fullname %> <br>
-    Role: <% switch (shop.members[i].role) {
-        case 0:
-      %> Director <%
-        break;
-        case 1:
-      %> Manager <%
-        break;
-        default:
-      %> Staff <%
-        break;
-      }%> <br>
-    <a href="/account/<%= shop.members[i].staffId %>">View</a> <br>
-<% } %>
+<div class="container-fluid" style="background-color: #E9EBE2;">
+  <div class="row">
+    <div class="col-sm-12"><h4>Shop name: <%= shop.name %></h4></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12"><h4>Address: <%= shop.address %></h4></div>
+  </div>
+  <div class="row" style="display: flex;">
+    <div class="col-sm-10"><h4><%= shop.members.length %> member(s)</h4></div>
+    <div class="col-sm-2" style="display: flex; align-items: center;"><% if (user.role == 1) { %> <a href="/account-create" class="btn btn-primary">New member</a><br> <% } %></div>
+  </div>
+</div>
+<div class="table-wrapper">
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Staff ID</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (var i = 0; i < shop.members.length; i++) { %>
+          <tr>
+          <td><%= shop.members[i].staffId %></td>
+          <td><%= shop.members[i].profile.fullname %></td>
+          <td><% switch (shop.members[i].role) {
+              case 0:
+            %> Director <%
+              break;
+              case 1:
+            %> Manager <%
+              break;
+              default:
+            %> Staff <%
+              break;
+            }%> </td>
+            <td><% if (shop.members[i].role > user.role || shop.members[i].staffId == user.staffId) { %> <a href="/account/<%= shop.members[i].staffId %>" class="btn btn-primary">View</a> <% } %></td>
+            </tr>
+      <% } %>
+      </tbody>
+  </table>
+  </div>
 <%- include('partials/footer') -%>

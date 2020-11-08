@@ -123,9 +123,6 @@ function create(request, response) {
   if (request.body.email){
     query.profile.email = request.body.email;
   }
-  if (request.body.urlImg){
-    query.profile.urlImg = request.body.urlImg;
-  }
   var page = "account";
   MongooseConnect.Connect(config.database.name)
     .then(db => {

@@ -45,7 +45,6 @@ function getList(request, response) {
     return response.redirect('/login');
   }
   if (request.session.user.role > 0) {
-    console.log(request.session.user.workingShop._id);
     return response.redirect(`/shop/${request.session.user.workingShop._id}`)
   }
   var query = {}

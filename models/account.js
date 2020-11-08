@@ -13,8 +13,7 @@ var AccountSchema = new Schema({
     fullname: String,
     dob: Date,
     phone: String,
-    email: String,
-    urlImg: String
+    email: String
   },
   createdDate: {type: Date, default: Date.now}
 })

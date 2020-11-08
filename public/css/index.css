@@ -1,5 +1,6 @@
 html {
-    background: #32527b
+    background: #32527b;
+    width: 100vw;
 }
 
 body {
@@ -28,22 +29,25 @@ header {
 header #banner {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 #banner #logo {
   margin-top: 5px;
   margin-left: 5px;
+  width: 100%;
+  text-align: center;
 }
 
 #banner #user {
-  width: 250px;
+  width: 100%;
   color: #E9EBE2;
   margin-top: 5px;
   margin-right: 5px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .navbar-inverse {
@@ -52,8 +56,24 @@ header #banner {
 }
 
 @media (min-width: 768px){
+  html {
+    width: 100%;
+  }
   .navbar {
       border-radius: 0px;
+  }
+
+  header #banner {
+    flex-direction: row;
+  }
+
+  #banner #logo {
+    text-align: left;
+  }
+
+  #banner #user {
+    width: 250px;
+    justify-content: left;
   }
 }
 
@@ -122,7 +142,7 @@ header #banner {
 background-color: #39ace7;
 }
 
-.login-wrapper input[type=text] {
+.login-wrapper input[type=text], .login-wrapper input[type=password] {
 background-color: #f6f6f6;
 border: none;
 color: #0d0d0d;
@@ -138,12 +158,12 @@ border: 2px solid #f6f6f6;
 border-radius: 5px 5px 5px 5px;
 }
   
-.login-wrapper input[type=text]:focus {
+.login-wrapper input[type=text]:focus, .login-wrapper input[type=password]:focus {
 background-color: #fff;
 border-bottom: 2px solid #5fbae9;
 }
 
-.login-wrapper input[type=text]:placeholder {
+.login-wrapper input[type=text]:placeholder, .login-wrapper input[type=password]:placeholder {
 color: #cccccc;
 }
 
@@ -152,6 +172,24 @@ color: #cccccc;
     color: red;
 }
 
+/*Table*/
+
+
+.table-wrapper{
+  width: 100%;
+  background-color: #a62c2b;
+  color: #E9EBE2;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  color: #000;
+}
+
+/*Form*/
+.form-container {
+  width: 500px;
+  margin: auto;
+}
 
 /*Footer*/
 footer {
