@@ -69,8 +69,8 @@ function getDetails(request, response) {
           if (result.length > 0){
             let customDate = "";
             customDate += result[0].profile.dob.getDate() + "/";
-            customDate += (result[0].profile.dob.getMonth() < 10? "0" : "") + result[0].profile.dob.getMonth() + "/";
-            customDate += result[0].profile.dob.getYear();
+            customDate += (result[0].profile.dob.getMonth()+1 < 10? "0" : "") + result[0].profile.dob.getMonth()+1 + "/";
+            customDate += result[0].profile.dob.getFullYear();
             result[0].profile.dob = customDate;
             response.render('accountDetails', {page: page, user: request.session.user, exitcode: 200, details: result[0], message: ''})
           }

@@ -1,0 +1,73 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div id="actions">
+                <button id="btn-all" class="btn btn-primary">All</button>
+                <button id="btn-clear" class="btn btn-danger">Clear</button>
+                <button id="btn-show" class="btn btn-success">Show</button>
+            </div>
+            <div id="shop-container">
+                <ul class="list-group list-group-flush" id="shop-group"></ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="report"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $.get('/shop-list-json', function(data, status){
+    data.shopList.forEach(element => {
+      $("#shop-group").append(`<li class="list-group-item">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="${element._id}" value="${element._id}" checked>
+      <label class="custom-control-label" for="${element._id}">${element.name} | ${element.address}</label></label>
+    </div>
+</li>`)
+    });
+  })
+
+    $("#btn-all").click(function() {
+        $("input[type='checkbox']:not(:checked)").each(function(){this.checked=true});
+    })
+
+    $("#btn-clear").click(function() {
+        $("input[type='checkbox']:checked").each(function(){this.checked=false});
+    })
+
+    $("#btn-show").click(function() {
+        var shopId = [];
+        $("input[type='checkbox']:checked").each(function()
+            {shopId.push(this.value)}
+        );
+        $.post("/getReport", {shopList: shopId}, function(data, status){
+            if (data.exitcode != 200) {
+                var inner = "Something wrong. [Exitcode: " + data.exitcode + "] " + data.message + ".";
+                $("#report").html(inner);
+                return;
+            }
+
+            if (data.reports.length <= 0) {
+                var inner = "Nothing to show."
+                $("#report").html(inner);
+                return;
+            }
+
+            const months = ['January', 'Ferbuary', 'March', 'April', 'May', 'June', 'July', 'August', 'Semptember', 'October', 'November', 'December'];
+            var inner = "";
+            inner += "<h3>Report " + months[data.month-1] + "/" + data.year +"</h3>";
+            data.reports.forEach(report => {
+                inner = "<div class=\"item\"><div><b>Name:</b> " + report.name + "<br>" +
+                        "<b>Address:</b> " + report.address + "<br>" +
+                        "<b>Total:</b> <span style=\"font-size: 16px\">" + report.total + "$</span><br>" +
+                        "<b>Amount of sold products:</b> " + report.soldProduct + "</div></div>"     
+            })
+            $("#report").html(inner);
+        })
+    })
+</script>
+<%- include('partials/footer') %>
+

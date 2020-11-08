@@ -74,6 +74,7 @@ app.post('/order-create', controllers.order.create);
 
 //Report
 app.get('/report', controllers.report.getView);
+app.post('/getReport', controllers.report.getReport);
 
 app.listen(config.server.port, () => {
   console.log(`Web app listening at the port ${config.server.port}...`);
