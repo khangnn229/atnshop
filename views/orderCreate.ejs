@@ -1,21 +1,38 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
-<% for (var i = 0; i < products.length; i++) {%>
-Name: <%= products[i].name%> <br>
-Price: <%= products[i].price%> <%= products[i].currency%> / <%=products[i].unit%> <br>
-Information: <%=products[i].information%> <br>
-<button id="btn-add" onclick='addToCart("<%= products[i]._id %>", "<%= products[i].name %>", "<%= products[i].price %>", "<%= products[i].currency%>", "<%= products[i].unit%>")'>Add</button> <br>
-<% } %> 
 
-<b>Cart</b>
-<div id="cart"></div>
-Total: <span id="total"></span>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <% for (var i = 0; i < products.length; i++) {%>
+                <div class="item">
+                    <div class="image">
+                        <img src="/images/<%= products[i].urlImg %>" alt="<%= products[i].name%>" width="180px">
+                    </div>
+                    <div class="info">
+                        <b>Name:</b> <%= products[i].name%> <br>
+                        <b>Price:</b> <%= products[i].price%> <%= products[i].currency%> / <%=products[i].unit%> <br>
+                        <b>Information:</b> <%=products[i].information%>
+                    </div>
+                    <div class="action">
+                        <button class="btn btn-success" id="btn-add" onclick='addToCart("<%= products[i]._id %>", "<%= products[i].name %>", "<%= products[i].price %>", "<%= products[i].currency%>", "<%= products[i].unit%>")'>Add</button>
+                    </div>
+                </div>    
+            <% } %> 
+        </div>
+        <div class="col-md-3 cart">
+            <b>Cart</b>
+            <div id="cart"></div>
+            Total: <span id="total"></span>
 
-<form action="/payment" method="post">
-    <input type="text" name="staffId" id="staffId" hidden>
-    <input type="text" name="cart" id="cartjson" hidden>
-    <input type="submit" value="Create">
-</form>
+            <form action="/payment" method="post">
+                <input type="text" name="staffId" id="staffId" hidden>
+                <input type="text" name="cart" id="cartjson" hidden>
+                <input class="btn btn-success" type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     var cart = [];
@@ -46,9 +63,9 @@ Total: <span id="total"></span>
         cartJSON += "{";
         cartJSON += "\"products\": [";
         for (var j = 0; j < xkey.length; j++) {
-            cartText += cart[xkey[j]].name + " <br> " + 
+            cartText += "<div class=\"item\">" + cart[xkey[j]].name + " <br> " + 
                        cart[xkey[j]].quantity + " " + cart[xkey[j]].unit + "(s) <br>" +
-                       cart[xkey[j]].price + " " + cart[xkey[j]].currency + "<br>"
+                       cart[xkey[j]].price + " " + cart[xkey[j]].currency + "<br>" + "</div>"
             cartJSON += "{ \"_id\": \"" + xkey[j] + "\"," +
                         "\"name\": \"" + cart[xkey[j]].name + "\", " +
                         "\"quantity\": " +  cart[xkey[j]].quantity + "," +

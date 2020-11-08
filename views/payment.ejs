@@ -1,26 +1,45 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
-Staff: 
-ID: <%= user.profile.staffId %> <br>
-Full name: <%= user.profile.fullname %> <br>
-Products:
-<% for (var i = 0; i < cart.products.length; i++) { %>
-Name: <%= cart.products[i].name %> <br>
-Price: <%= cart.products[i].price %> <%= cart.products[i].currency %> <br>
-Quantity: <%= cart.products[i].quantity %> (<%= cart.products[i].unit %>(s)) <br>
-Subtotal: <%= (cart.products[i].price * cart.products[i].quantity).toFixed(2) %> <br>
-<% } %>
-Created Date: <%= createdDate %> <br>
-Total: <br>
-<% for (var i = 0; i < cart.total.length; i++) { %>
-<%= cart.total[i].total%> <%= cart.total[i].currency %>
-<% if (i < cart.total.length -1) { %> + <% } %>
-<% } %>
+<div style="background-color: #E9EBE2;">
+    <h3>Staff</h3>
+    <p><b>ID:</b> <%= user.staffId %> <br>
+    <b>Full name:</b> <%= user.profile.fullname %></p> 
 
-<form action="/order-create" method="post">
-    <input type="text" name="staffId" id="staffId" value="<%= user.staffId %>" hidden>
-    <input type="text" name="cart" id="cartjson" value="<%= cartjson %>" hidden>
-    <input type="datetime" name="createdDate" id="cartjson" value="<%= createdDate %>" hidden>
-    <input type="submit" value="Confirm">
-</form><br>
+    <h3>Products</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < cart.products.length; i++) { %>
+                <tr>
+                    <td><%= cart.products[i].name %></td>
+                    <td><%= cart.products[i].price %> <%= cart.products[i].currency %></td>
+                    <td><%= cart.products[i].quantity %> (<%= cart.products[i].unit %>(s))</td>
+                    <td><%= (cart.products[i].price * cart.products[i].quantity).toFixed(2) %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h3>Created Date</h3> 
+    <p><%= createdDate %></p>
+    <h3>Total:</h3>
+    <b><% for (var i = 0; i < cart.total.length; i++) { %>
+    <%= cart.total[i].total%> <%= cart.total[i].currency %>
+    <% if (i < cart.total.length -1) { %> + <% } %>
+    <% } %></b>
+    
+    <form action="/order-create" method="post">
+        <input type="text" name="staffId" id="staffId" value="<%= user.staffId %>" hidden>
+        <input type="text" name="cart" id="cartjson" value="<%= cartjson %>" hidden>
+        <input type="datetime" name="createdDate" id="cartjson" value="<%= createdDate %>" hidden>
+        <input class="btn btn-success" type="submit" value="Confirm">
+    </form><br>
+</div>
 <%- include('partials/footer') -%>

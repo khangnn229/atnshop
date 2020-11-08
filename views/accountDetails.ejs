@@ -1,24 +1,61 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
-<%= details.staffId%> <br>
-<%= details.username%> <br>
-<% switch (details.role) {
-    case 0:
-  %> Director <%
-    break;
-    case 1:
-  %> Manager <%
-    break;
-    default:
-  %> Staff <%
-    break;
-  }%> <br>
-<%= details.profile.fullname%> <br>
-<%= details.profile.dob%> <br>
-<%= details.profile.phone%> <br>
-<%= details.profile.email%> <br>
-<% if (details.role > 0) {%> 
-<%= details.workingShop.name%> <br>
-<%= details.workingShop.address%> <br>
-<%} %>
+<div class="profile">
+<table class="table">
+  <tr>
+    <td colspan="2" class="info-section">Information</td>
+  </tr>
+  <tr>
+    <td class="info-label">Staff ID</td>
+    <td><%= details.staffId%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Username</td>
+    <td><%= details.username%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Role</td>
+    <td><% switch (details.role) {
+      case 0:
+    %> Director <%
+      break;
+      case 1:
+    %> Manager <%
+      break;
+      default:
+    %> Staff <%
+      break;
+    }%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Full name</td>
+    <td><%= details.profile.fullname%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Date of Birth</td>
+    <td><%= details.profile.dob%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Phone</td>
+    <td><%= details.profile.phone%></td>
+  </tr>
+  <tr>
+    <td class="info-label">Email</td>
+    <td><%= details.profile.email%></td>
+  </tr>
+  <% if (details.role > 0) { %>
+  <tr>
+    <td colspan="2" class="info-section">Working Shop</td>
+  </tr>
+  <tr>
+    <td class="info-label">Working Shop</td>
+    <td><%= details.workingShop.name%> </td>
+  </tr>
+  <tr>
+    <td class="info-label">Address</td>
+    <td><%= details.workingShop.address%></td>
+  </tr>
+  <% } %>
+</table>
+</div>
 <%- include('partials/footer') -%>
